@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Checker 3000</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loader" class="loader-overlay hidden">
+        <div class="spinner"></div>
+        <p>AI is checking your vibe...</p>
+    </div>
+
+    <div class="container">
+        <h1 class="title">Vibe Checker 3000</h1>
+        <p class="subtitle">Upload your photo and let a real AI be the judge! 📸</p>
+
+        <div class="ai-status" id="aiStatus">
+            🧠 Connected to Gemini Vision AI
+        </div>
+
+        <div class="mode-selector">
+            <select id="roastMode">
+                <option value="normal">Normal Roast</option>
+                <option value="extreme">Extreme Roast</option>
+                <option value="compliment">Compliment Mode</option>
+                <option value="chaos">Pure Chaos</option>
+            </select>
+        </div>
+
+        <div class="photo-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="photo-preview" id="photoPreview">
+                    📷 Click here or drag & drop your photo
+                </div>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" class="hidden">
+        </div>
+
+        <div class="controls">
+            <button class="primary-btn" id="analyzeBtn" disabled>Check My Vibe!</button>
+        </div>
+
+        <div class="results" id="results">
+            <div class="vibe-score" id="vibeScore">0</div>
+            <div class="category" id="category">Loading your vibe...</div>
+            
+            <div class="meters">
+                <div class="meter">
+                    <div class="meter-name">Pookie Level</div>
+                    <div class="meter-bar"><div class="meter-fill" id="pookieMeter"></div></div>
+                </div>
+                <div class="meter">
+                    <div class="meter-name">Cringe Factor</div>
+                    <div class="meter-bar"><div class="meter-fill" id="cringeMeter"></div></div>
+                </div>
+                <div class="meter">
+                    <div class="meter-name">Sass Level</div>
+                    <div class="meter-bar"><div class="meter-fill" id="sassMeter"></div></div>
+                </div>
+                <div class="meter">
+                    <div class="meter-name">Ghost Energy</div>
+                    <div class="meter-bar"><div class="meter-fill" id="ghostMeter"></div></div>
+                </div>
+            </div>
+
+            <div class="roast" id="roastText">Analyzing your questionable life choices...</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
