@@ -33,23 +33,32 @@ Tools : VS Code, Git & GitHub, npm
 # Implementation
 For Software :
 # Installation
-bash   
+```bash 
 git clone https://github.com/ShreyaPadmakumar/vibechecker.git
+```
 
 # Clone the repository
+```bash
 https://github.com/ShreyaPadmakumar/vibechecker.git
+```
 
 # Navigate to the project folder
+```bash
 cd vibechecker
+```
 
 # Install backend dependencies
+```bash
 npm install
+```
 
 # Create a .env file with your Gemini API key
 echo "GEMINI_API_KEY=YOUR_API_KEY_HERE" > .env
 
 # Start the backend server
+```bash
 node server.js
+```
 
 # Open index.html in your browser to use the app
 How it Works
