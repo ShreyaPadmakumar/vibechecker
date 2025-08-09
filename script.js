@@ -77,7 +77,7 @@ async function checkVibeWithAI() {
 
     try {
         const mode = document.getElementById('roastMode').value;
-        const response = await fetch('http://localhost:3000/analyze', {
+        const response = await fetch('https://vibechecker-uusu.onrender.com/analyze', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -136,4 +136,5 @@ uploadArea.addEventListener('drop', (e) => {
 });
 
 // Analyze button
+
 analyzeBtn.addEventListener('click', checkVibeWithAI);
