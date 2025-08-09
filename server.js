@@ -15,12 +15,10 @@ app.use(express.json({ limit: '10mb' })); // Allow larger image payloads
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 function getSystemPrompt(mode) {
-    // This is the core instruction for the AI.
-    // We ask it to return a JSON object to make the response predictable.
     return `You are the Vibe Checker 3000, an AI with a witty, slightly sarcastic personality.
     Analyze the user's photo and their chosen mode ("${mode}").
     Based on the image's colors, lighting, subject, and overall feeling, you must respond with ONLY a valid JSON object.
-    Do not include any text before or after the JSON object.
+    Do not include any text, markdown formatting, or explanations before or after the JSON object. Just the raw JSON.
     The JSON object must have the following structure:
     {
       "vibeScore": <a number between 1 and 100>,
@@ -44,13 +42,15 @@ app.post('/analyze', async (req, res) => {
             return res.status(400).json({ error: 'Image data and mode are required.' });
         }
 
-        const model = genAI.getGenerativeModel({ model: 'gemini-pro-vision' });
+        // ---------- THIS IS THE IMPORTANT, CORRECTED LINE ----------
+        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' }); 
+        // -----------------------------------------------------------
+
         const prompt = getSystemPrompt(mode);
         
-        // Gemini needs the image in a specific format
         const imagePart = {
             inlineData: {
-                data: image.split(',')[1], // Remove the 'data:image/jpeg;base64,' part
+                data: image.split(',')[1],
                 mimeType: image.match(/:(.*?);/)[1]
             },
         };
@@ -60,15 +60,15 @@ app.post('/analyze', async (req, res) => {
         let text = response.text();
 
         // Clean up the response to ensure it's valid JSON
-        text = text.replace('```json', '').replace('```', '').trim();
+        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
 
-        // Parse the JSON string from Gemini into an object
         const analysis = JSON.parse(text);
         res.json(analysis);
 
     } catch (error) {
         console.error('Error with Gemini API:', error);
-        res.status(500).json({ error: 'Failed to analyze the vibe. The AI might be taking a nap.' });
+        const errorMessage = error.message || 'An unknown error occurred.';
+        res.status(500).json({ error: `AI Error: ${errorMessage}` });
     }
 });
 
